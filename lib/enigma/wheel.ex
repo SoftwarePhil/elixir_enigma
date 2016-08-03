@@ -8,10 +8,13 @@ def spin(wheel) do
   end
 end
 
+def key_press(key) do
+  [head | _] = key ++ 0
+end
 # a - z ~~DOES NOT MOVE
 # ~~a wheel with letter maps~~ that spins like (a -> e) (b -> z) .. SPIN (a -> w) (b -> e) (c -> z)
 # there are three of these
 # a reflection ..
-# 
+#
 
 end
