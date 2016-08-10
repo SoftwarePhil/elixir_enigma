@@ -1,5 +1,24 @@
 defmodule Enigma.Wheel do
 
+def encode(wheel, message) do
+  _encode(wheel, message, '')
+end
+
+def decode(wheel, message) do
+  Tuple.to_list(wheel)
+  |>Enum.map(fn(x)->-x end)
+  |>List.to_tuple()
+  |>_encode(message, '')
+end
+
+defp _encode(wheel, [head | tail], current_message) do
+  _encode(spin(wheel), tail, current_message ++ [shift(head, elem(wheel, 0))])
+end
+
+defp _encode(_, [], current_message) do
+  current_message
+end
+
 def spin(wheel) do
   with first = elem(wheel, 0) do
   wheel
@@ -8,18 +27,19 @@ def spin(wheel) do
   end
 end
 
-def map(key, wheel, num) do
-
-end
-
-def shift(key, offset) when offset !== 0 do
+defp shift(letter, letter_shift) do
   a = ?a
   z = ?z
+  offset = rem(letter_shift, 26)
   cond do
-    offset + key > z -> a - 1 + offset
-    offset + key < a -> z + 1 +  offset
-    offset -> key + offset
+    offset + letter > z -> a - 1 + offset
+    offset + letter < a -> z + 1 +  offset
+    offset -> letter + offset
   end
+end
+
+defp shift(letter, offset) when offset === 0 do
+  letter
 end
 
 def ceaser(letters, offset) do
@@ -27,7 +47,7 @@ def ceaser(letters, offset) do
 end
 
 #might not need these
-def key_press(key) do
+def letter_as_number(key) do
   [head | _] = key ++ 0
   head
 end
@@ -35,10 +55,6 @@ end
 def actual_letter(num) do
   [num]
 end
-# a - z ~~DOES NOT MOVE
-# ~~a wheel with letter maps~~ that spins like (a -> e) (b -> z) .. SPIN (a -> w) (b -> e) (c -> z)
-# there are three of these
-# a reflection ..
-#
 
+#todo:: make a wheel struct, make a spin wheels function, add starting values to wheels, test
 end
