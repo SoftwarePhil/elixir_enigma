@@ -56,5 +56,5 @@ def actual_letter(num) do
   [num]
 end
 
-#todo:: make a wheel struct, make a spin wheels function, add starting values to wheels, test
+#todo:: make a wheel struct, make a spin wheels function, add starting values to wheels, tests
 end
